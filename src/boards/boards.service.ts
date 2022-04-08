@@ -34,6 +34,15 @@ export class BoardsService {
     }   // createBoards(title: string, descriptions: string) 끝
 
     getBoardById(id : string): Board {
+
         return this.boards.find((board) => board.id === id);
+
     }   // getBoardById(id : string) 끝
+
+    deleteBoard(id : string): void {
+
+        // filter()를 이용해서 id가 같지 않은것만 남기고, 같은거를 지워버리고 this.boards에 담는다.
+        this.boards = this.boards.filter((board) => board.id !== id);
+
+    }   // deleteBoard(id : string) 끝
 }   // class 끝

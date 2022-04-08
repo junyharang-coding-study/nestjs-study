@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { title } from 'process';
-import { Boards } from './boards.model';
+import { Board } from './boards.model';
 import { BoardsService } from './boards.service';
+import { CreateBoardDTO } from './dto/create-board.dto';
 
 @Controller('board')
 export class BoardsController {
@@ -13,16 +14,22 @@ export class BoardsController {
         // this.boardsService = boardsService; 
 
     @Get() 
-    getAllBoard(): Boards[] {   // 목록 조회 | :Boards[] = return Type
+    getAllBoard(): Board[] {   // 목록 조회 | :Boards[] = return Type
         return this.boardsService.getAllBoards();
     }   // getAllBoard() 끝
 
     @Post()
     createBoard( 
-        @Body('title') title: string,
-        @Body('description') description : string ): Boards {   // 게시글 등록
+        @Body() createBoardDTO: CreateBoardDTO): Board {   // 게시글 등록
 
-            return this.boardsService.createBoards(title, description);
+            return this.boardsService.createBoards(createBoardDTO);
 
     }   // createBoard() 끝
+
+    @Get(':id')
+    getBoardById(@Param('id') id : string): Board {
+
+        return this.boardsService.getBoardById(id);
+
+    } // getBoardById(@Param('id') 끝
 } // class 끝

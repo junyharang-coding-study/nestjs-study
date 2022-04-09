@@ -1,9 +1,0 @@
-db:
-  host: '211.37.173.118'
-  username: 'chnops1'
-  password: 'chnops1234'
-  # Entity를 참고하여 자동으로 Table을 정의해주는 설정(JPA의 ddl-auto와 유사)
-  synchronize: true
-
-#jwt:
-  #secret: 'secret'

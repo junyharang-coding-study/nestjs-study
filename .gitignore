@@ -339,7 +339,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # Config
-.config/*.yaml
-.config/*.yml
+config/*.yaml
+config/*.yml
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij,windows,node,nextjs

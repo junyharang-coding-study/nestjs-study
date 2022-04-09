@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Logger,
   Param,
   ParseIntPipe,
   Patch,
@@ -18,6 +19,8 @@ import { BoardStatusValidationPipe } from '../common/pipes/boards/board-status-v
 
 @Controller('board')
 export class BoardsController {
+  private logger = new Logger('boards.controller.ts');
+
   // boardsService : BoardsService;   // 생성자에 접근 제한자(private)을 선언해주면 생략 가능
 
   constructor(private boardsService: BoardsService) {} // 생성자 끝
@@ -31,10 +34,16 @@ export class BoardsController {
   } // reateBoard(@Body() createBoardDTO : CreateBoardDTO) 끝
 
   @Get() getAllBoards(): Promise<Board[]> {
+    this.logger.verbose(`BoardsController의 getAllBoards()가 호출 되었습니다!`);
+
     return this.boardsService.getAllBoards();
   } // getAllBoards() 끝
 
   @Get(':id') getBoardById(@Param('id') id: number): Promise<Board> {
+    this.logger.verbose(
+      `BoardsController의 getBoardById(@Param('id') id: number)가 호출 되었습니다!`,
+    );
+
     return this.boardsService.getBoardById(id);
   } // getBoardById(@Param('id') id : number) 끝
 
@@ -42,11 +51,19 @@ export class BoardsController {
     @Param('id', ParseIntPipe) id: number,
     @Body('status', BoardStatusValidationPipe) status: BoardStatus,
   ): Promise<Board> {
+    this.logger.verbose(
+      `BoardsController의 updateBoardStatus(@Param('id', ParseIntPipe) id: number, @Body('status', BoardStatusValidationPipe)가 호출 되었습니다!`,
+    );
+
     return this.boardsService.updateBoardStatus(id, status);
   } // updateBoardStatus(@Param('id') id : number, @Body('status') status : BoardStatus) 끝
 
   // ParseIntPipe는 매개변수로 들어오는 값이 숫자 인지 유효성 검사.
   @Delete(':id') deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
+    this.logger.verbose(
+      `BoardsController의 deleteBoard(@Param('id', ParseIntPipe) id)가 호출 되었습니다!`,
+    );
+
     return this.boardsService.deleteBoard(id);
   } // deleteBoard(@Param('id', ParseIntPipe) id) 끝
 
